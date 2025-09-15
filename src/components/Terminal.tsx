@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRef, useEffect } from "react"; // make sure these are imported
-import { userAgent } from "next/server";
 
 export default function Terminal() {
   const [logs, setLogs] = useState<string[]>([
@@ -31,11 +30,18 @@ export default function Terminal() {
         "➡ clear",
       ]);
     } else if (base === "add" && args[1] === "income") {
+      // Get current user first
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setLogs((prev) => [...prev, "❌ Not authenticated"]);
+        return;
+      }
+
       const amount = parseFloat(args[2]);
       const source = args.slice(3).join(" ") || "other";
       const { error } = await supabase
         .from("income")
-        .insert([{ amount, source }]);
+        .insert([{ amount, source, user_id: user.id }]);
       setLogs((prev) => [
         ...prev,
         error
@@ -43,23 +49,41 @@ export default function Terminal() {
           : `✅ Income of ₹${amount} (${source}) added`,
       ]);
     } else if (base === "add" && args[1] === "expense") {
+      // Get current user first
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setLogs((prev) => [...prev, "❌ Not authenticated"]);
+        return;
+      }
+
       const amount = parseFloat(args[2]);
-      const category = args.slice(3).join(" ") || "general";
-      const title = args.slice(3).join(" ") || "general";
+      const category = args[3] || "general";
+      const title = args.slice(4).join(" ") || "Terminal expense";
       const { error } = await supabase
         .from("expenses")
-        .insert([{ amount, category, title }]);
+        .insert([{ amount, category, title, user_id: user.id }]);
       setLogs((prev) => [
         ...prev,
         error
           ? `❌ ${error.message}`
-          : `✅ Expense of ₹${amount} (${category}) (${title}) added`,
+          : `✅ Expense of ₹${amount} (${category}) - ${title} added`,
       ]);
     } else if (base === "show" && args[1] === "balance") {
-      const { data: incomes } = await supabase.from("income").select("amount");
+      // Get current user first
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setLogs((prev) => [...prev, "❌ Not authenticated"]);
+        return;
+      }
+
+      const { data: incomes } = await supabase
+        .from("income")
+        .select("amount")
+        .eq("user_id", user.id);
       const { data: expenses } = await supabase
         .from("expenses")
-        .select("amount");
+        .select("amount")
+        .eq("user_id", user.id);
 
       const totalIncome =
         incomes?.reduce((acc, i) => acc + Number(i.amount), 0) || 0;
@@ -71,9 +95,17 @@ export default function Terminal() {
         `💰 Current Balance: ₹${totalIncome - totalExpenses}`,
       ]);
     } else if (base === "show" && args[1] === "income") {
+      // Get current user first
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setLogs((prev) => [...prev, "❌ Not authenticated"]);
+        return;
+      }
+
       const { data } = await supabase
         .from("income")
         .select("amount, source, date")
+        .eq("user_id", user.id)
         .order("date", { ascending: false })
         .limit(5);
       setLogs((prev) => [
@@ -87,15 +119,23 @@ export default function Terminal() {
         ),
       ]);
     } else if (base === "show" && args[1] === "expenses") {
+      // Get current user first
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        setLogs((prev) => [...prev, "❌ Not authenticated"]);
+        return;
+      }
+
       const { data } = await supabase
         .from("expenses")
-        .select("amount, category")
+        .select("amount, category, title")
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(6);
       setLogs((prev) => [
         ...prev,
         "📉 Recent Expenses:",
-        ...(data || []).map((e) => `- ₹${e.amount} (${e.category})`),
+        ...(data || []).map((e) => `- ₹${e.amount} (${e.category}) - ${e.title}`),
       ]);
     } else if (base === "clear") {
       setLogs(["💻 Terminal cleared. Type 'help' to see commands"]);

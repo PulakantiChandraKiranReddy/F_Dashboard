@@ -63,3 +63,166 @@ body::after {
   scrollbar-width: thin;
   scrollbar-color: #22c55e #0c0c0c;
 }
+
+/* Mobile responsiveness improvements */
+@media (max-width: 640px) {
+  /* Smaller text on mobile */
+  .text-responsive {
+    font-size: 0.875rem;
+  }
+  
+  /* Better spacing on mobile */
+  .space-responsive > * + * {
+    margin-top: 0.75rem;
+  }
+  
+  /* Full width on mobile */
+  .w-full-mobile {
+    width: 100%;
+  }
+  
+  /* Hide on very small screens */
+  .hidden-xs {
+    display: none;
+  }
+}
+
+@media (min-width: 475px) {
+  .hidden-xs {
+    display: inline;
+  }
+}
+
+/* Better chart responsiveness */
+.recharts-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Ensure charts are visible */
+.recharts-surface {
+  overflow: visible !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: #9CA3AF !important;
+}
+
+.recharts-tooltip-wrapper {
+  z-index: 1000 !important;
+}
+
+/* Fix chart container dimensions */
+.chart-container {
+  width: 100%;
+  height: 300px;
+  min-height: 300px;
+  position: relative;
+}
+
+.chart-container .recharts-wrapper {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Force chart visibility */
+.recharts-surface {
+  display: block !important;
+  overflow: visible !important;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: #374151 !important;
+}
+
+.recharts-line {
+  display: block !important;
+}
+
+.recharts-line-dot {
+  display: block !important;
+}
+
+/* Recharts 3.x specific fixes */
+.recharts-wrapper {
+  position: relative !important;
+}
+
+.recharts-cartesian-axis {
+  display: block !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: #9CA3AF !important;
+}
+
+.recharts-tooltip-wrapper {
+  position: absolute !important;
+  z-index: 1000 !important;
+}
+
+/* Ensure chart elements are visible */
+.recharts-line-curve {
+  display: block !important;
+}
+
+.recharts-dot {
+  display: block !important;
+}
+
+/* Improve form inputs on mobile */
+@media (max-width: 640px) {
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Better table responsiveness */
+@media (max-width: 640px) {
+  .table-responsive {
+    font-size: 0.75rem;
+  }
+  
+  .table-responsive th,
+  .table-responsive td {
+    padding: 0.5rem 0.25rem;
+  }
+}
+
+/* Header improvements */
+header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* Ensure header stays on top */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+/* Smooth transitions for header elements */
+header a,
+header button {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Ensure text readability on transparent header */
+header h1,
+header span,
+header a {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Better mobile header spacing */
+@media (max-width: 640px) {
+  header .max-w-7xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

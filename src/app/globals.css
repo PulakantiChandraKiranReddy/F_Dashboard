@@ -22,6 +22,8 @@ body::before {
   height: 100%;
   background: url("/bg12.webp") no-repeat center center;
   background-size: cover;
+  filter: brightness(20%); /* Adjust the percentage to control brightness */
+
   z-index: -2; /* behind everything */
 }
 
@@ -41,6 +43,7 @@ body::after {
 @media (max-width: 768px) {
   body::before {
     background: url("/bg11.webp") no-repeat center center;
+    filter: brightness(20%);
     background-size: cover;
   }
 }
@@ -70,17 +73,17 @@ body::after {
   .text-responsive {
     font-size: 0.875rem;
   }
-  
+
   /* Better spacing on mobile */
   .space-responsive > * + * {
     margin-top: 0.75rem;
   }
-  
+
   /* Full width on mobile */
   .w-full-mobile {
     width: 100%;
   }
-  
+
   /* Hide on very small screens */
   .hidden-xs {
     display: none;
@@ -105,7 +108,7 @@ body::after {
 }
 
 .recharts-cartesian-axis-tick-value {
-  fill: #9CA3AF !important;
+  fill: #9ca3af !important;
 }
 
 .recharts-tooltip-wrapper {
@@ -154,7 +157,7 @@ body::after {
 }
 
 .recharts-cartesian-axis-tick-value {
-  fill: #9CA3AF !important;
+  fill: #9ca3af !important;
 }
 
 .recharts-tooltip-wrapper {
@@ -173,7 +176,9 @@ body::after {
 
 /* Improve form inputs on mobile */
 @media (max-width: 640px) {
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px; /* Prevents zoom on iOS */
   }
 }
@@ -183,7 +188,7 @@ body::after {
   .table-responsive {
     font-size: 0.75rem;
   }
-  
+
   .table-responsive th,
   .table-responsive td {
     padding: 0.5rem 0.25rem;
@@ -194,7 +199,11 @@ body::after {
 header {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
 }
 
 /* Ensure header stays on top */

@@ -43,7 +43,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none"
+            className="w-full p-3 rounded-md border text-white border-gray-300 focus:outline-none"
           />
           <input
             type="password"
@@ -51,7 +51,7 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full p-3 rounded-md border border-gray-300 focus:outline-none"
+            className="w-full p-3 rounded-md border text-white border-gray-300 focus:outline-none"
           />
           <button
             type="submit"

@@ -68,6 +68,7 @@ export default function Header() {
             <button
               onClick={() => {
                 localStorage.removeItem("token");
+                supabase.auth.signOut();
                 window.location.href = "/login";
               }}
               className="bg-red-600/90 hover:bg-red-700 text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-200 backdrop-blur-sm"

@@ -8,7 +8,7 @@ export default function Home() {
 
   useEffect(() => {
     // Redirect to dashboard on home page
-    router.push("/dashboard");
+    router.push("/login");
   }, [router]);
 
   return (

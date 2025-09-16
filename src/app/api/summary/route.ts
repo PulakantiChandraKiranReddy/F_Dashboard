@@ -48,8 +48,12 @@ export async function GET(req: Request) {
 
   let totalIncome = 0;
   let totalBorrowed = 0;
+  type IncomeRow = {
+    type: string;
+    amount: number;
+  };
 
-  incomeRows?.forEach((i) => {
+  incomeRows?.forEach((i: IncomeRow) => {
     if (i.type === "borrowed") {
       totalBorrowed += i.amount;
     } else {
@@ -57,7 +61,12 @@ export async function GET(req: Request) {
     }
   });
 
-  const totalExpenses = expenseRows?.reduce((sum, e) => sum + e.amount, 0) ?? 0;
+  type ExpenseRow = {
+    type: string;
+    amount: number;
+  };
+  const totalExpenses =
+    expenseRows?.reduce((sum: number, e: ExpenseRow) => sum + e.amount, 0) ?? 0;
 
   const netSavings = totalIncome + totalBorrowed - totalExpenses;
 

@@ -5,9 +5,9 @@ import { useMemo, useState, useCallback } from "react";
 import { format, startOfMonth, endOfMonth, subMonths } from "date-fns";
 import ExpenseChart from "./charts/ExpenseChart";
 import IncomeChart from "./charts/IncomeChart";
-import TestChart from "./charts/TestChart";
-import DataDebug from "./DataDebug";
-import SimpleChart from "./SimpleChart";
+// import TestChart from "./charts/TestChart";
+// import DataDebug from "./DataDebug";
+// import SimpleChart from "./SimpleChart";
 
 interface Summary {
   totalIncome: number;

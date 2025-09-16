@@ -247,9 +247,36 @@ export default function ExpenseChart({ expenses, loading }: ExpenseChartProps) {
               </tr>
             </thead>
             <tbody>
-              {expenses
+              {/* {expenses
                 ?.sort(
                   (a, b) => new Date(b.created_at) - new Date(a.created_at)
+                )
+                .slice(0, 10)
+                .map((expense) => (
+                  <tr key={expense.id} className="border-b border-gray-700/50">
+                    <td className="py-2 text-gray-400">
+                      <div className="text-xs">
+                        {format(new Date(expense.created_at), "MMM dd")}
+                      </div>
+                    </td>
+                    <td className="py-2 text-white hidden sm:table-cell truncate max-w-32">
+                      {expense.title}
+                    </td>
+                    <td className="py-2">
+                      <span className="px-1.5 sm:px-2 py-1 bg-gray-600 text-gray-200 rounded text-xs">
+                        {expense.category}
+                      </span>
+                    </td>
+                    <td className="py-2 text-right text-red-300 font-medium text-xs sm:text-sm">
+                      -₹{Number(expense.amount).toLocaleString()}
+                    </td>
+                  </tr>
+                ))} */}
+              {expenses
+                ?.sort(
+                  (a, b) =>
+                    new Date(b.created_at).getTime() -
+                    new Date(a.created_at).getTime()
                 )
                 .slice(0, 10)
                 .map((expense) => (
